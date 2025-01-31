@@ -12,6 +12,7 @@ import { Form, FormControl, FormField, FormItem, FormMessage } from "@/component
 import { ThemeToggle } from "@/components/theme-toggle";
 import { addUser } from "@/lib/actions";
 import Image from "next/image";
+import { useState, useEffect } from "react";
 
 const formSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
@@ -19,6 +20,15 @@ const formSchema = z.object({
 
 export default function Home() {
   const { toast } = useToast();
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+  
+  useEffect(() => {
+    setDimensions({
+      width: window.innerWidth,
+      height: window.innerHeight
+    });
+  }, []);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
@@ -67,17 +77,17 @@ export default function Home() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-32 bg-violet-500/30 blur-[120px] -z-10" />
         
         <div className="absolute inset-0">
-          {Array.from({ length: 20 }).map((_, i) => (
+          {dimensions.width > 0 && Array.from({ length: 20 }).map((_, i) => (
             <motion.div
               key={i}
               className="absolute h-2 w-2 bg-indigo-500/30 rounded-full"
               initial={{
-                x: Math.random() * window.innerWidth,
-                y: Math.random() * window.innerHeight,
+                x: Math.random() * dimensions.width,
+                y: Math.random() * dimensions.height,
               }}
               animate={{
-                x: Math.random() * window.innerWidth,
-                y: Math.random() * window.innerHeight,
+                x: Math.random() * dimensions.width,
+                y: Math.random() * dimensions.height,
               }}
               transition={{
                 duration: Math.random() * 5 + 10,

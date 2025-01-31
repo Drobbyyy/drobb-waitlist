@@ -7,8 +7,8 @@ import { Toaster } from '@/components/ui/toaster';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Modern Landing Page',
-  description: 'A sleek and modern landing page',
+  title: 'drobb waitlist',
+  description: 'A waitlist for drobb.',
 };
 
 export default function RootLayout({
