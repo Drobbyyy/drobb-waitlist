@@ -6,14 +6,14 @@ import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 
-export function ThemeToggle() {
+export function ThemeToggle({ className }: { className?: string }) {
   const { theme, setTheme } = useTheme();
 
   return (
     <Button
       variant="ghost"
       size="icon"
-      className="fixed top-4 right-4 z-50 rounded-full bg-background/10 backdrop-blur-lg hover:bg-background/20"
+      className={`fixed top-4 right-4 z-50 rounded-full bg-background/10 backdrop-blur-lg hover:bg-background/20 ${className}`}
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
     >
       <motion.div
