@@ -50,7 +50,7 @@ export default function FooterSection() {
               </a>
             </div>
             <p className="text-sm font-light tracking-wide text-zinc-500 dark:text-zinc-400">
-              &copy; {new Date().getFullYear()} USAR Technologies Pvt. Ltd.
+              &copy; {new Date().getFullYear()} drobb. Technologies Pvt. Ltd.
             </p>
           </div>
         </div>

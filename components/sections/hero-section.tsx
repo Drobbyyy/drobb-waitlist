@@ -60,7 +60,7 @@ export function HeroSection() {
   }
 
   return (
-    <section className="h-screen flex items-center justify-between px-4 sm:px-6 lg:px-20 relative overflow-hidden">
+    <section className="min-h-screen flex flex-col lg:flex-row items-center justify-between px-4 sm:px-6 lg:px-20 relative overflow-hidden py-10 lg:py-0">
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-br dark:from-black dark:via-zinc-900 dark:to-zinc-800 from-white via-gray-50 to-gray-100" />
       
@@ -97,14 +97,14 @@ export function HeroSection() {
       </div>
       
       {/* Left Side - Hero Content */}
-      <div className="relative z-10 max-w-2xl">
+      <div className="relative z-10 max-w-2xl text-center lg:text-left mb-10 lg:mb-0">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           className="relative"
         >
-          <div className="relative w-64 h-48">
+          <div className="relative w-48 h-36 sm:w-64 sm:h-48 mx-auto lg:mx-0 -mb-10">
             <Image
               src="https://res.cloudinary.com/diyxwdtjd/image/upload/v1738478698/projects/black-drobb-logo.png"
               alt="drobb logo"
@@ -112,10 +112,10 @@ export function HeroSection() {
               className="object-contain dark:invert"
             />
           </div>
-          <h1 className="text-4xl sm:text-6xl font-bold text-black dark:text-white mb-6">
+          <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-black dark:text-white mb-4 sm:mb-6">
             Be the First to Experience Drobb
           </h1>
-          <p className="text-xl sm:text-2xl text-gray-600 dark:text-gray-300 mb-8">
+          <p className="text-lg sm:text-xl lg:text-2xl text-gray-600 dark:text-gray-300 mb-6 sm:mb-8">
             Join our exclusive waitlist and be notified when we launch our revolutionary app
           </p>
         </motion.div>
@@ -128,14 +128,13 @@ export function HeroSection() {
         transition={{ duration: 0.8, delay: 0.2 }}
         className="relative z-10 w-full max-w-md"
       >
-        <div className="relative dark:bg-white/5 bg-black/5 backdrop-blur-xl rounded-2xl p-8 border dark:border-white/10 border-black/10 dark:shadow-[0_0_2rem_0_rgba(255,255,255,0.05)] shadow-[0_0_2rem_0_rgba(0,0,0,0.05)]">
-          <h2 className="text-3xl font-bold text-black dark:text-white mb-4">
+        <div className="relative dark:bg-white/5 bg-black/5 backdrop-blur-xl rounded-2xl p-6 sm:p-8 border dark:border-white/10 border-black/10 dark:shadow-[0_0_2rem_0_rgba(255,255,255,0.05)] shadow-[0_0_2rem_0_rgba(0,0,0,0.05)]">
+          <h2 className="text-2xl sm:text-3xl font-bold text-black dark:text-white mb-3 sm:mb-4">
             Join the Waitlist
           </h2>
-          <p className="text-gray-600 dark:text-gray-300 mb-8">
+          <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 mb-6 sm:mb-8">
             Be among the first to know when Drobb launches. Get early access and exclusive updates!
           </p>
-          
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
               <FormField
