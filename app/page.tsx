@@ -13,6 +13,11 @@ import { HeroSection } from "@/components/sections/hero-section";
 import { VibeSection } from "@/components/sections/vibe-section";
 import { MatchSection } from "@/components/sections/match-section";
 import FooterSection from "@/components/sections/footer-section";
+import { HowItWorksSection } from "@/components/sections/how-it-works-section";
+import { ShopSection } from "@/components/sections/shop-section";
+import { StyleSection } from "@/components/sections/style-section";
+import { FeaturesSection } from "@/components/sections/features-section";
+import { Navbar } from "@/components/navbar";
 
 const formSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
@@ -21,11 +26,11 @@ const formSchema = z.object({
 export default function Home() {
   const { toast } = useToast();
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
-  
+
   useEffect(() => {
     setDimensions({
       width: window.innerWidth,
-      height: window.innerHeight
+      height: window.innerHeight,
     });
   }, []);
 
@@ -34,20 +39,24 @@ export default function Home() {
   });
 
   return (
-    <main className="min-h-screen bg-white dark:bg-black">
-      {/* <ThemeToggle className="fixed top-4 right-4 z-50" /> */}
-      
+    <main className="flex min-h-screen flex-col items-center justify-between">
+      {/* Navbar */}
+      <Navbar />
+
       {/* Hero Section with Email Input */}
       <HeroSection />
 
-      {/* Search Section */}
-      <SearchSection />
+      {/* How It Works Section */}
+      <HowItWorksSection />
 
-      {/* Vibe Section */}
-      <VibeSection />
+      {/* Shop Section */}
+      <ShopSection />
 
-      {/* Match Section */}
-      <MatchSection />
+      {/* Style Section */}
+      <StyleSection />
+
+      {/* Features Section */}
+      <FeaturesSection />
 
       {/* Footer Section */}
       <FooterSection />

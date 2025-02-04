@@ -2,15 +2,34 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Instagram, Linkedin } from "lucide-react";
+import { Instagram, Linkedin, Mail } from "lucide-react";
 
 export default function FooterSection() {
   return (
     <footer className="w-full bg-[#F6F1EA] dark:bg-zinc-900">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="flex flex-col items-center space-y-10">
+        <div className="flex flex-col items-center">
+          {/* Questions Section */}
+          <div className="text-center space-y-4">
+            <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
+              Still have questions?
+            </h2>
+            <p className="text-xl text-gray-600 dark:text-gray-400">
+              Contact us for more information or assistance.
+            </p>
+            <div className="flex items-center justify-center gap-2 text-gray-900 dark:text-gray-100 hover:text-gray-600 dark:hover:text-gray-300 transition-colors duration-200">
+              <Mail className="w-5 h-5" />
+              <a 
+                href="mailto:poorv@drobb.in"
+                className="text-lg font-medium"
+              >
+                poorv@drobb.in
+              </a>
+            </div>
+          </div>
+
           {/* Logo */}
-          <Link href="/" className="relative w-64 h-48 -mb-20">
+          <Link href="/" className="relative w-64 h-48 -mb-14">
             <Image
               src="https://res.cloudinary.com/diyxwdtjd/image/upload/v1738478698/projects/black-drobb-logo.png"
               alt="drobb logo"
@@ -37,29 +56,6 @@ export default function FooterSection() {
               <Linkedin className="w-5 h-5" />
             </Link>
           </div>
-
-          {/* Contact and Copyright */}
-          <div className="flex flex-col items-center space-y-3">
-            <div className="text-sm font-light tracking-wide">
-              <span className="text-zinc-500 dark:text-zinc-400">for contact mail at </span>
-              <a 
-                href="mailto:poorv@gmail.com" 
-                className="text-zinc-900 dark:text-zinc-100 hover:text-zinc-700 dark:hover:text-zinc-300 transition-colors duration-200"
-              >
-                poorv@gmail.com
-              </a>
-            </div>
-            <p className="text-sm font-light tracking-wide text-zinc-500 dark:text-zinc-400">
-              &copy; {new Date().getFullYear()} drobb. Technologies Pvt. Ltd.
-            </p>
-          </div>
-        </div>
-
-        {/* Bottom Border */}
-        <div className="mt-12 pt-6 border-t border-zinc-200 dark:border-zinc-800">
-          <p className="text-[13px] text-center font-light text-zinc-500 dark:text-zinc-400">
-            All rights reserved.
-          </p>
         </div>
       </div>
     </footer>

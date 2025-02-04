@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -10,8 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { addUser } from "@/lib/actions";
 import Image from "next/image";
-import { useState, useEffect } from "react";
-import { useTheme } from "next-themes";
+import { Loader2 } from "lucide-react";
 
 const formSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
@@ -19,15 +17,6 @@ const formSchema = z.object({
 
 export function HeroSection() {
   const { toast } = useToast();
-  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
-  // const { theme } = useTheme();
-  
-  useEffect(() => {
-    setDimensions({
-      width: window.innerWidth,
-      height: window.innerHeight
-    });
-  }, []);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -60,118 +49,112 @@ export function HeroSection() {
   }
 
   return (
-    <section className="min-h-screen flex flex-col lg:flex-row items-center justify-between px-4 sm:px-6 lg:px-20 relative overflow-hidden py-10 lg:py-0">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br dark:from-black dark:via-zinc-900 dark:to-zinc-800 from-white via-gray-50 to-gray-100" />
-      
-      {/* Glow Effects */}
-      <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[30%] h-[60%] bg-gradient-to-r dark:from-white/10 dark:to-transparent from-black/10 to-transparent blur-3xl" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-32 dark:bg-white/5 bg-black/5 blur-[120px]" />
-      
-      {/* Animated Particles */}
-      <div className="absolute inset-0">
-        {dimensions.width > 0 && Array.from({ length: 20 }).map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute h-2 w-2 dark:bg-white/10 bg-black/10 rounded-full before:absolute before:inset-0 before:blur-sm before:bg-inherit"
-            initial={{
-              x: Math.random() * dimensions.width,
-              y: Math.random() * dimensions.height,
-              scale: Math.random() * 0.5 + 0.5,
-            }}
-            animate={{
-              x: Math.random() * dimensions.width,
-              y: Math.random() * dimensions.height,
-            }}
-            transition={{
-              duration: Math.random() * 5 + 10,
-              repeat: Infinity,
-              repeatType: "reverse",
-              ease: "linear",
-            }}
-            style={{
-              willChange: "transform",
-            }}
-          />
-        ))}
-      </div>
-      
-      {/* Left Side - Hero Content */}
-      <div className="relative z-10 max-w-2xl text-center lg:text-left mb-10 lg:mb-0">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="relative"
-        >
-          <div className="relative w-48 h-36 sm:w-64 sm:h-48 mx-auto lg:mx-0 -mb-10">
-            <Image
-              src="https://res.cloudinary.com/diyxwdtjd/image/upload/v1738478698/projects/black-drobb-logo.png"
-              alt="drobb logo"
-              fill
-              className="object-contain dark:invert"
-            />
-          </div>
-          <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-black dark:text-white mb-4 sm:mb-6">
-            Be the First to Experience Drobb
-          </h1>
-          <p className="text-lg sm:text-xl lg:text-2xl text-gray-600 dark:text-gray-300 mb-6 sm:mb-8">
-            Join our exclusive waitlist and be notified when we launch our revolutionary app
-          </p>
-        </motion.div>
-      </div>
-
-      {/* Right Side - Email Form */}
-      <motion.div
-        initial={{ opacity: 0, x: 20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.8, delay: 0.2 }}
-        className="relative z-10 w-full max-w-md"
-      >
-        <div className="relative dark:bg-white/5 bg-black/5 backdrop-blur-xl rounded-2xl p-6 sm:p-8 border dark:border-white/10 border-black/10 dark:shadow-[0_0_2rem_0_rgba(255,255,255,0.05)] shadow-[0_0_2rem_0_rgba(0,0,0,0.05)]">
-          <h2 className="text-2xl sm:text-3xl font-bold text-black dark:text-white mb-3 sm:mb-4">
-            Join the Waitlist
-          </h2>
-          <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 mb-6 sm:mb-8">
-            Be among the first to know when Drobb launches. Get early access and exclusive updates!
-          </p>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <Input
-                        placeholder="Enter your email"
-                        className="h-12 dark:bg-white/5 bg-black/5 backdrop-blur-sm dark:border-white/10 border-black/10 focus:dark:border-white/20 focus:border-black/20 transition-colors text-black dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage className="text-red-500 dark:text-red-400" />
-                  </FormItem>
-                )}
-              />
-              <Button
-                type="submit"
-                className="w-full h-12 bg-black dark:bg-white hover:bg-zinc-800 dark:hover:bg-gray-100 text-white dark:text-black border border-transparent shadow-lg transition-all duration-200"
-                disabled={form.formState.isSubmitting}
-              >
-                {form.formState.isSubmitting ? (
-                  <motion.div
-                    className="h-5 w-5 border-2 border-current border-t-transparent rounded-full"
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+    <section className="flex items-center mt-32 mb-10">
+      <div className="container mx-auto px-4">
+        {/* Main Content */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+          {/* Left Column */}
+          <div className="space-y-6 lg:space-y-8 mt-0 lg:-mt-48">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.1]">
+              Find clothing tailored to you, in minutes.
+            </h1>
+            <p className="text-lg sm:text-xl text-gray-600 leading-relaxed">
+              Drobb is here to make fashion fun. Discover personalised outfits that match your vibe with just a swipe.
+            </p>
+            <div className="space-y-4 max-w-md">
+              <div className="space-y-1.5">
+                <h3 className="text-lg font-semibold text-gray-900">Join Our Waitlist</h3>
+                <p className="text-sm text-gray-500">Get early access and exclusive updates when we launch.</p>
+              </div>
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <div className="flex gap-2 w-full">
+                            <Input
+                              placeholder="Enter your email"
+                              className="h-11 rounded-lg border-gray-200 bg-white/80 text-gray-900 placeholder:text-gray-400 focus:border-gray-900 focus:ring-1 focus:ring-gray-900 transition-all duration-200"
+                              {...field}
+                            />
+                            <Button 
+                              type="submit"
+                              className="h-11 px-6 bg-gray-900 hover:bg-gray-800 text-white rounded-lg transition-all duration-200 whitespace-nowrap flex-shrink-0"
+                              disabled={form.formState.isSubmitting}
+                            >
+                              {form.formState.isSubmitting ? (
+                                <div className="flex items-center gap-2">
+                                  <Loader2 className="h-4 w-4 animate-spin" />
+                                  <span>Joining...</span>
+                                </div>
+                              ) : (
+                                "Join Now"
+                              )}
+                            </Button>
+                          </div>
+                        </FormControl>
+                        <FormMessage className="text-red-500 mt-1.5 text-sm" />
+                      </FormItem>
+                    )}
                   />
-                ) : (
-                  "Subscribe Now"
-                )}
-              </Button>
-            </form>
-          </Form>
+                </form>
+              </Form>
+            </div>
+          </div>
+
+          {/* Right Column - Image Grid */}
+          <div className="grid grid-cols-3 gap-3 lg:gap-4">
+            <div className="col-span-2 space-y-3 lg:space-y-4">
+              <div className="bg-gray-50 rounded-2xl p-3 lg:p-4">
+                <Image
+                  src="https://res.cloudinary.com/diyxwdtjd/image/upload/v1738662028/projects/3_uw4ktn.png"
+                  alt="Fashion"
+                  width={400}
+                  height={600}
+                  className="rounded-xl w-full h-auto"
+                />
+              </div>
+              <div className="bg-gray-50 rounded-2xl p-3 lg:p-4">
+                <Image
+                  src="https://res.cloudinary.com/diyxwdtjd/image/upload/v1738662028/projects/WhatsApp_Image_2025-02-04_at_13.48.17_yq1lky.jpg"
+                  alt="Fashion"
+                  width={400}
+                  height={300}
+                  className="rounded-xl w-full h-auto"
+                />
+              </div>
+            </div>
+            <div className="space-y-3 lg:space-y-4">
+              <div className="bg-gray-50 rounded-2xl p-3 lg:p-4">
+                <Image
+                  src="https://res.cloudinary.com/diyxwdtjd/image/upload/v1738662028/projects/WhatsApp_Image_2025-02-04_at_13.48.16_xqyy9l.jpg"
+                  alt="Fashion"
+                  width={200}
+                  height={400}
+                  className="rounded-xl w-full h-auto"
+                />
+              </div>
+              <div className="bg-gray-50 rounded-2xl p-3 lg:p-4">
+                <Image
+                  src="https://res.cloudinary.com/diyxwdtjd/image/upload/v1738662027/projects/WhatsApp_Image_2025-02-04_at_13.48.16_1_kglrux.jpg"
+                  alt="Fashion"
+                  width={200}
+                  height={400}
+                  className="rounded-xl w-full h-auto"
+                />
+              </div>
+            </div>
+          </div>
         </div>
-      </motion.div>
+
+        {/* Bottom Text */}
+        <p className="text-lg font-medium text-center mt-8 text-gray-900">
+          Shop instantly from 100+ premium brands!
+        </p>
+      </div>
     </section>
   );
 }
