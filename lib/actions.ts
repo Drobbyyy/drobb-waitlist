@@ -18,3 +18,12 @@ export const addUser = async (email: string) => {
         }
     }
 };
+
+export const getUsersCountAction = async () => {
+    try {
+        const count = await prisma.user.count();
+        return count;
+    } catch (error: any) {
+        console.log("Error getting user count: ", error.message, "Error code: ", error.code);
+    }
+}

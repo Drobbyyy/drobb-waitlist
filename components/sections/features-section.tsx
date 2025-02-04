@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Sparkles, TrendingUp, BookmarkCheck, CreditCard } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export const FeaturesSection = () => {
   return (
@@ -80,13 +81,14 @@ export const FeaturesSection = () => {
 
           {/* Download Button */}
           <div className="text-center mt-12 md:mt-16 lg:mt-20">
-            <Button 
-              variant="default" 
-              size="lg"
-              className="rounded-full text-base md:text-lg px-8 py-6 h-auto font-medium bg-black hover:bg-gray-900"
+            <Link 
+            href="/"
+              // variant="default" 
+              // size="lg"
+              className="rounded-full text-base md:text-lg px-8 py-6 h-auto font-medium bg-black hover:bg-gray-900 text-white"
             >
-              Download Now!
-            </Button>
+              Join Now!
+            </Link>
           </div>
         </div>
       </div>

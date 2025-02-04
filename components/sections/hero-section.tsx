@@ -7,9 +7,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
-import { addUser } from "@/lib/actions";
+import { addUser, getUsersCountAction } from "@/lib/actions";
 import Image from "next/image";
 import { Loader2 } from "lucide-react";
+import { useEffect, useState } from "react";
 
 const formSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
@@ -17,6 +18,16 @@ const formSchema = z.object({
 
 export function HeroSection() {
   const { toast } = useToast();
+  const [usersCount, setUsersCount] = useState<any>(0);
+
+  useEffect(() => {
+    const getUsersCountData = async () => {
+      const count = await getUsersCountAction();
+      setUsersCount(count);
+    }
+    getUsersCountData();
+  }, [])
+  
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -102,6 +113,19 @@ export function HeroSection() {
                   />
                 </form>
               </Form>
+
+              {/* User Count Indicator */}
+              <div className="flex items-center gap-3 mt-6">
+                <div className="flex -space-x-2">
+                  <div className="w-8 h-8 rounded-full bg-gray-900 border-2 border-white flex items-center justify-center text-[10px] font-medium text-white">D</div>
+                  <div className="w-8 h-8 rounded-full bg-gray-800 border-2 border-white flex items-center justify-center text-[10px] font-medium text-white">R</div>
+                  <div className="w-8 h-8 rounded-full bg-gray-700 border-2 border-white flex items-center justify-center text-[10px] font-medium text-white">B</div>
+                </div>
+                <div className="flex items-baseline gap-1.5">
+                  <span className="text-lg font-semibold text-gray-900">{10000+usersCount}</span>
+                  <span className="text-sm text-gray-600">users have already joined</span>
+                </div>
+              </div>
             </div>
           </div>
 

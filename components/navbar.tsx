@@ -24,7 +24,7 @@ export function Navbar() {
             size="sm"
             className="bg-black text-white rounded-full px-6 hover:bg-gray-900"
           >
-            Download Now!
+            Join Now!
           </Button>
         </div>
       </div>
