@@ -24,7 +24,7 @@ export const HowItWorksSection = () => {
           </div>
 
           {/* Center Phone Image */}
-          <div className="relative w-[400px] md:w-[900px] h-[600px] md:h-[1100px] order-1 md:order-none ml-0 md:ml-8">
+          <div className="relative w-[390px] md:w-[900px] h-[600px] md:h-[1100px] order-1 md:order-none ml-0 md:ml-8">
             <Image
               src="https://res.cloudinary.com/diyxwdtjd/image/upload/v1738675191/projects/WhatsApp_Image_2025-02-04_at_18.02.50_ko2f0j.jpg"
               alt="Styl App Interface"
