@@ -15,7 +15,7 @@ export const HowItWorksSection = () => {
         {/* Main Content */}
         <div className="flex flex-col md:flex-row items-center justify-center mt-8 md:mt-16 relative">
           {/* Left Text */}
-          <div className="md:absolute md:left-0 md:lg:left-20 text-center md:text-left order-2 md:order-none mt-8 md:mt-0 max-w-[250px] mx-auto md:mx-0">
+          <div className="md:absolute md:left-0 md:lg:left-20 text-center md:text-left order-2 md:order-none mt-8 md:mt-0 max-w-[250px] mx-auto md:mx-0 z-10">
             <h3 className="text-2xl md:text-3xl font-semibold mb-3">Swipe</h3>
             <p className="text-sm text-gray-300 leading-relaxed">
               Like what you see? Swipe right to save it.
@@ -24,13 +24,12 @@ export const HowItWorksSection = () => {
           </div>
 
           {/* Center Phone Image */}
-          <div className="relative w-[300px] md:w-[700px] h-[500px] md:h-[900px] order-1 md:order-none">
+          <div className="relative w-[400px] md:w-[900px] h-[600px] md:h-[1100px] order-1 md:order-none ml-0 md:ml-8">
             <Image
-              src="https://res.cloudinary.com/diyxwdtjd/image/upload/v1738654199/projects/Untitled_design_1_zp36fu.png"
+              src="https://res.cloudinary.com/diyxwdtjd/image/upload/v1738675191/projects/WhatsApp_Image_2025-02-04_at_18.02.50_ko2f0j.jpg"
               alt="Styl App Interface"
               fill
-              className="object-contain object-left"
-              style={{ objectPosition: 'left center', clipPath: 'inset(0 10% 0 0)' }}
+              className="object-contain object-center md:object-left-center"
               priority
             />
           </div>

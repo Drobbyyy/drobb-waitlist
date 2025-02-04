@@ -7,13 +7,13 @@ export const ShopSection = () => {
         {/* Main Content */}
         <div className="flex flex-col md:flex-row items-center justify-center mt-8 md:mt-16 relative">
           {/* Center Phone Image */}
-          <div className="relative w-[300px] md:w-[700px] h-[500px] md:h-[900px] order-1">
+          <div className="relative w-[220px] md:w-[500px] h-[420px] md:h-[700px] order-1">
             <Image
-              src="https://res.cloudinary.com/diyxwdtjd/image/upload/v1738654199/projects/Untitled_design_eizdfu.png"
+              src="https://res.cloudinary.com/diyxwdtjd/image/upload/v1738675191/projects/WhatsApp_Image_2025-02-04_at_18.10.16_qvvza1.jpg"
               alt="Styl Shop Interface"
               fill
               className="object-contain object-left"
-              style={{ objectPosition: 'left center', clipPath: 'inset(0 10% 0 0)' }}
+              style={{ objectPosition: 'center center', clipPath: 'inset(0 0 5% 0)' }}
               priority
             />
           </div>

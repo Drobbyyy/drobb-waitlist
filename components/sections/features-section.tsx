@@ -44,7 +44,7 @@ export const FeaturesSection = () => {
             <div className="md:col-span-2 relative order-1 md:order-2 mb-8 md:mb-0">
               <div className="relative w-full h-[400px] sm:h-[500px] md:h-[600px] lg:h-[700px]">
                 <Image
-                  src="https://res.cloudinary.com/diyxwdtjd/image/upload/v1738657366/projects/4_pgwftn.png"
+                  src="https://res.cloudinary.com/diyxwdtjd/image/upload/v1738675028/projects/WhatsApp_Image_2025-02-04_at_18.02.42_xllynl.jpg"
                   alt="Styl App Features"
                   fill
                   className="object-contain"
