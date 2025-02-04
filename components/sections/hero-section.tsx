@@ -60,7 +60,7 @@ export function HeroSection() {
   }
 
   return (
-    <section className="flex items-center mt-32 mb-10 bg-white">
+    <section className="flex items-center mt-32 mb-10 bg-white text-black">
       <div className="container mx-auto px-4">
         {/* Main Content */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
