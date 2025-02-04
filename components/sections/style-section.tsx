@@ -17,7 +17,7 @@ export const StyleSection = () => {
           {/* Center Phone Image */}
           <div className="relative w-[300px] md:w-[700px] h-[500px] md:h-[900px] order-1 md:order-none">
             <Image
-              src="https://res.cloudinary.com/diyxwdtjd/image/upload/v1738652849/projects/2.svg_e9jaku.png"
+              src="https://res.cloudinary.com/diyxwdtjd/image/upload/v1738664139/projects/2.svg_g5fryr.png"
               alt="Styl App Interface"
               fill
               className="object-contain object-left"
