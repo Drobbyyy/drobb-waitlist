@@ -43,7 +43,7 @@ export default function FooterSection() {
           <div className="flex items-center gap-6">
             <Link 
               target="_blank"
-              href="https://www.instagram.com/drobb_ai?igsh=MWIyM3J6MTZiZzJr" 
+              href="https://www.instagram.com/swipedrobb/" 
               className="text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 transition-all duration-200 hover:scale-110 z-10"
               aria-label="Instagram"
             >

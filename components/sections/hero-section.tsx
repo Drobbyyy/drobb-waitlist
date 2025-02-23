@@ -122,7 +122,7 @@ export function HeroSection() {
                   <div className="w-8 h-8 rounded-full bg-gray-700 border-2 border-white flex items-center justify-center text-[10px] font-medium text-white">B</div>
                 </div>
                 <div className="flex items-baseline gap-1.5">
-                  <span className="text-lg font-semibold text-gray-900">{10000+usersCount}</span>
+                  <span className="text-lg font-semibold text-gray-900">{usersCount}</span>
                   <span className="text-sm text-gray-600">users have already joined</span>
                 </div>
               </div>
