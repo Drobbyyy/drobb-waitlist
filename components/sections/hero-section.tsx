@@ -17,9 +17,6 @@ import { addUser, getUsersCountAction } from "@/lib/actions";
 import Image from "next/image";
 import { Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
-import { Separator } from "@/components/ui/separator";
-import { signIn, signOut } from "next-auth/react";
-import { useSession } from "next-auth/react";
 
 const formSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
@@ -27,15 +24,14 @@ const formSchema = z.object({
 
 export function HeroSection() {
   const { toast } = useToast();
-  const [usersCount, setUsersCount] = useState<any>(0);
-  const session = useSession();
-
+  const [usersCount, setUsersCount] = useState<number>(0);
+  
   useEffect(() => {
-    const getUsersCountData = async () => {
+    async function fetchUsersCount() {
       const count = await getUsersCountAction();
       setUsersCount(count);
-    };
-    getUsersCountData();
+    }
+    fetchUsersCount();
   }, []);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -44,24 +40,34 @@ export function HeroSection() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
+      // 1️⃣ Save user email in the database
       await addUser(values.email);
+
+      // 2️⃣ Send confirmation email using Resend API
+      const response = await fetch("/api/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: values.email }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to send confirmation email");
+      }
+
       toast({
         title: "Success!",
-        description: "Thank you for subscribing.",
+        description: "You're on the waitlist! Check your email.",
       });
+
       form.reset();
     } catch (error: any) {
-      console.log("Error at client: ", error);
-      if (error.message.includes("Email already subscribed.")) {
-        toast({
-          title: "Error",
-          description: "You are already subscribed with this email.",
-        });
-        return;
-      }
+      console.error("Error:", error);
       toast({
         title: "Error",
-        description: "Something went wrong. Please try again.",
+        description:
+          error.message.includes("Email already subscribed.")
+            ? "You are already subscribed with this email."
+            : "Something went wrong. Please try again.",
         variant: "destructive",
       });
     }
@@ -70,7 +76,6 @@ export function HeroSection() {
   return (
     <section className="flex items-center mt-32 mb-10 bg-white text-black">
       <div className="container mx-auto px-4">
-        {/* Main Content */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Left Column */}
           <div className="space-y-6 lg:space-y-8 mt-0 lg:-mt-48">
@@ -78,9 +83,11 @@ export function HeroSection() {
               Find clothing tailored to you, in minutes.
             </h1>
             <p className="text-lg sm:text-xl text-gray-600 leading-relaxed">
-              Drobb is here to make fashion fun. Discover personalised outfits
+              Drobb is here to make fashion fun. Discover personalized outfits
               that match your vibe with just a swipe.
             </p>
+
+            {/* Email Signup */}
             <div className="space-y-4 max-w-md">
               <div className="space-y-1.5">
                 <h3 className="text-lg font-semibold text-gray-900">
@@ -101,12 +108,12 @@ export function HeroSection() {
                           <div className="flex gap-2 w-full">
                             <Input
                               placeholder="Enter your email"
-                              className="h-11 rounded-lg border-gray-200 bg-white/80 text-gray-900 placeholder:text-gray-400 focus:border-gray-900 focus:ring-1 focus:ring-gray-900 transition-all duration-200"
+                              className="h-11 rounded-lg border-gray-200 bg-white text-gray-900 placeholder-gray-400 focus:border-gray-900 focus:ring-1 focus:ring-gray-900 transition-all"
                               {...field}
                             />
                             <Button
                               type="submit"
-                              className="h-11 px-6 bg-gray-900 hover:bg-gray-800 text-white rounded-lg transition-all duration-200 whitespace-nowrap flex-shrink-0"
+                              className="h-11 px-6 bg-black hover:bg-gray-800 text-white rounded-lg transition-all flex-shrink-0"
                               disabled={form.formState.isSubmitting}
                             >
                               {form.formState.isSubmitting ? (
@@ -126,6 +133,7 @@ export function HeroSection() {
                   />
                 </form>
               </Form>
+
               {/* User Count Indicator */}
               <div className="flex items-center gap-3 mt-6">
                 <div className="flex -space-x-2">
@@ -154,44 +162,36 @@ export function HeroSection() {
           {/* Right Column - Image Grid */}
           <div className="grid grid-cols-3 gap-3 lg:gap-4">
             <div className="col-span-2 space-y-3 lg:space-y-4">
-              <div className="bg-gray-50 rounded-2xl p-3 lg:p-4">
-                <Image
-                  src="https://res.cloudinary.com/diyxwdtjd/image/upload/v1738662028/projects/3_uw4ktn.png"
-                  alt="Fashion"
-                  width={400}
-                  height={600}
-                  className="rounded-xl w-full h-auto"
-                />
-              </div>
-              <div className="bg-gray-50 rounded-2xl p-3 lg:p-4">
-                <Image
-                  src="https://res.cloudinary.com/diyxwdtjd/image/upload/v1738662028/projects/WhatsApp_Image_2025-02-04_at_13.48.17_yq1lky.jpg"
-                  alt="Fashion"
-                  width={400}
-                  height={300}
-                  className="rounded-xl w-full h-auto"
-                />
-              </div>
+              <Image
+                src="https://res.cloudinary.com/diyxwdtjd/image/upload/v1738662028/projects/3_uw4ktn.png"
+                alt="Fashion"
+                width={400}
+                height={600}
+                className="rounded-xl w-full"
+              />
+              <Image
+                src="https://res.cloudinary.com/diyxwdtjd/image/upload/v1738662028/projects/WhatsApp_Image_2025-02-04_at_13.48.17_yq1lky.jpg"
+                alt="Fashion"
+                width={400}
+                height={300}
+                className="rounded-xl w-full"
+              />
             </div>
             <div className="space-y-3 lg:space-y-4">
-              <div className="bg-gray-50 rounded-2xl p-3 lg:p-4">
-                <Image
-                  src="https://res.cloudinary.com/diyxwdtjd/image/upload/v1738662028/projects/WhatsApp_Image_2025-02-04_at_13.48.16_xqyy9l.jpg"
-                  alt="Fashion"
-                  width={200}
-                  height={400}
-                  className="rounded-xl w-full h-auto"
-                />
-              </div>
-              <div className="bg-gray-50 rounded-2xl p-3 lg:p-4">
-                <Image
-                  src="https://res.cloudinary.com/diyxwdtjd/image/upload/v1738662027/projects/WhatsApp_Image_2025-02-04_at_13.48.16_1_kglrux.jpg"
-                  alt="Fashion"
-                  width={200}
-                  height={400}
-                  className="rounded-xl w-full h-auto"
-                />
-              </div>
+              <Image
+                src="https://res.cloudinary.com/diyxwdtjd/image/upload/v1738662028/projects/WhatsApp_Image_2025-02-04_at_13.48.16_xqyy9l.jpg"
+                alt="Fashion"
+                width={200}
+                height={400}
+                className="rounded-xl w-full"
+              />
+              <Image
+                src="https://res.cloudinary.com/diyxwdtjd/image/upload/v1738662027/projects/WhatsApp_Image_2025-02-04_at_13.48.16_1_kglrux.jpg"
+                alt="Fashion"
+                width={200}
+                height={400}
+                className="rounded-xl w-full"
+              />
             </div>
           </div>
         </div>
