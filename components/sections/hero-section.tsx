@@ -29,7 +29,7 @@ export function HeroSection() {
   useEffect(() => {
     async function fetchUsersCount() {
       const count = await getUsersCountAction();
-      setUsersCount(count);
+      setUsersCount(count+2100);
     }
     fetchUsersCount();
   }, []);
