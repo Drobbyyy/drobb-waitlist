@@ -80,11 +80,10 @@ export function HeroSection() {
           {/* Left Column */}
           <div className="space-y-6 lg:space-y-8 mt-0 lg:-mt-48">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.1]">
-              Find clothing tailored to you, in minutes.
+              Drobb- The Tinder for clothes
             </h1>
             <p className="text-lg sm:text-xl text-gray-600 leading-relaxed">
-              Drobb is here to make fashion fun. Discover personalized outfits
-              that match your vibe with just a swipe.
+              Drobb is here to make fashion irresistable-Discover your next look with every swipe
             </p>
 
             {/* Email Signup */}
